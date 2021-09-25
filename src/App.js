@@ -1,21 +1,17 @@
 import './App.css';
-import Navbar from './components/Navbar';
 import scrambleGenerator from "rubiks-cube-scramble";
-import Scramble from './components/Scramble';
+import Navbar from './components/Navbar';
+import Stopwatch from './components/Stopwatch';
 import React, { useState } from 'react';
 
 function App() {
-  const [scramble, setScramble] = useState(null)
-
-  const generateScramble = () => {
-    setScramble(scrambleGenerator());
-  }
+  console.log(scrambleGenerator());
 
   return (
-   <>
-    <Navbar />
-    <Scramble scramble={scramble} />
-   </>
+    <>
+      <Navbar scranble={scrambleGenerator()} />
+      <Stopwatch />
+    </>
   );
 }
 
