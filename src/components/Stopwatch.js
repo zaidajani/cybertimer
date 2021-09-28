@@ -1,30 +1,66 @@
 import React from "react";
-import checkOdd from "../functions/CheckOdd";
 
-export default function Stopwatch() {
+const App = () => {
+  const [time, setTime] = React.useState(0);
+  const [timerOn, setTimerOn] = React.useState(false);
+
   React.useEffect(() => {
-    var input = document.getElementById("time");
-    let time = 0;
-    let spacebartime = 0;
-    document.addEventListener("keyup", function (event) {
-      spacebartime += 1;
-      if (checkOdd(spacebartime)) {
-        clearInterval();
-      }
-      if (event.key === ' ' ||  event.key === 'Spacebar') {
-        setInterval(() => {
-          time = time + 1;
-          input.innerText = time;
-        }, 1000);
-      }
-    });
-  }, []);
+    let interval = null;
+
+    if (timerOn) {
+      interval = setInterval(() => {
+        setTime((prevTime) => prevTime + 10);
+      }, 10);
+    } else if (!timerOn) {
+      clearInterval(interval);
+    }
+
+    return () => clearInterval(interval);
+  }, [timerOn]);
 
   return (
-    <div>
-      <center>
-        <h1 id="time">0.00</h1>
-      </center>
+    <div className="Timers">
+      <h2>Stopwatch</h2>
+      <div id="display">
+        <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
+        <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
+        <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
+      </div>
+
+      <div id="buttons">
+        {!timerOn && time === 0 && (
+          <button
+            onKeyPress={(e) => {
+              if (e.key === " " || e.key === "Spacebar") {
+                setTimerOn(true);
+              }
+            }}
+          >
+            Start
+          </button>
+        )}
+        {timerOn && (
+          <button
+            onKeyPress={(e) => {
+              if (e.key === " " || e.key === "Spacebar") {
+                setTimerOn(false);
+              }
+            }}
+          >
+            Stop
+          </button>
+        )}
+        {!timerOn && time > 0 && (
+          <button onClick={() => setTime(0)}>Reset</button>
+        )}
+        {!timerOn && time > 0 && (
+          <button onClick={() => setTimerOn(true)}>Resume</button>
+        )}
+      </div>
     </div>
   );
-}
+};
+
+export default App;
+
+// setTimerOn(false)
