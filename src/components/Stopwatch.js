@@ -28,11 +28,12 @@ const App = () => {
       </div>
 
       <div id="buttons">
-        {!timerOn && time === 0 && (
+        {/* {!timerOn && time === 0 && (
           <button
-            onKeyPress={(e) => {
-              if (e.key === " " || e.key === "Spacebar") {
+            onKeyUp={(e) => {
+              if (e.key === " " || e.key === "Enter") {
                 setTimerOn(true);
+                console.log('key pressed');
               }
             }}
           >
@@ -41,21 +42,16 @@ const App = () => {
         )}
         {timerOn && (
           <button
-            onKeyPress={(e) => {
+            onKeyUp={(e) => {
               if (e.key === " " || e.key === "Spacebar") {
+                console.log('key pressed');
                 setTimerOn(false);
               }
             }}
           >
             Stop
           </button>
-        )}
-        {!timerOn && time > 0 && (
-          <button onClick={() => setTime(0)}>Reset</button>
-        )}
-        {!timerOn && time > 0 && (
-          <button onClick={() => setTimerOn(true)}>Resume</button>
-        )}
+        )} */}
       </div>
     </div>
   );
